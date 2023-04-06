@@ -1,6 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Link from "next/link";
+
+import Button from "../ui/Button";
+
+import classes from "./EventItem.module.css";
+import DateIcon from "../icons/date-icon";
+import AddressIcon from "../icons/address-icon";
+import ArrowRightIcon from "../icons/arrow-right-icon";
 
 const EventItem = (props) => {
   const { title, image, date, location, id } = props;
@@ -8,29 +13,38 @@ const EventItem = (props) => {
   const readableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
-    year: "string",
+    year: "numeric",
   });
+
+  const readableAddress = location.replace(", ", "\n");
+  const link = `/events/${id}`;
+
   return (
-    <li>
-      <img src="" alt="" />
-      <div>
-        <div>
+    <li className={classes.item}>
+      <img src={"/" + image} alt={title} />
+      <div className={classes.content}>
+        <div className={classes.summary}>
           <h2>{title}</h2>
-          <div>
-            <time></time>
+          <div className={classes.date}>
+            <DateIcon />
+            <time>{readableDate}</time>
           </div>
-          <div>
-            <address>ADRESS</address>
+          <div className={classes.address}>
+            <AddressIcon />
+            <address>{readableAddress}</address>
           </div>
         </div>
-        <div>
-          <Link href="/">Explore Event</Link>
+        <div className={classes.actions}>
+          <Button link={link}>
+            <span>Explore Event</span>
+            <span className={classes.icon}>
+              <ArrowRightIcon />
+            </span>
+          </Button>
         </div>
       </div>
     </li>
   );
 };
-
-EventItem.propTypes = {};
 
 export default EventItem;
