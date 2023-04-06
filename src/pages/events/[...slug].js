@@ -2,6 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import { getFilteredEvents } from "../../../dummy-data";
 import EventList from "../../../components/events/EventList";
+import ResultsTitle from "../../../components/events/ResultsTitle";
+import Button from "../../../components/ui/Button";
+import ErrorAlert from "../../../components/ui/ErrorAlert";
 
 const Slug = () => {
   const router = useRouter();
@@ -27,7 +30,16 @@ const Slug = () => {
     monthNumber > 12 ||
     filteredData.length > 2
   ) {
-    return <p>Invalid Filter please change your values</p>;
+    return (
+      <>
+        <ErrorAlert>
+          <p>Invalid Filter please change your values</p>
+        </ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
+      </>
+    );
   }
 
   const filteredEvents = getFilteredEvents({
@@ -36,13 +48,25 @@ const Slug = () => {
   });
 
   if (!filteredEvents || filteredEvents.length === 0) {
-    return <p>No Events Found for the selected filter!</p>;
+    return (
+      <>
+        <ErrorAlert>
+          <p>No Events Found for the selected filter!</p>
+        </ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
+      </>
+    );
   }
 
+  const date = new Date(yearNumber, monthNumber - 1);
+
   return (
-    <div>
+    <>
+      <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
-    </div>
+    </>
   );
 };
 
