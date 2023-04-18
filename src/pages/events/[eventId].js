@@ -5,6 +5,7 @@ import EventSummary from "../../../components/event-detail/event-summary";
 import EventLogistics from "../../../components/event-detail/event-logistics";
 import EventContent from "../../../components/event-detail/event-content";
 import ErrorAlert from "../../../components/ui/ErrorAlert";
+import Button from "../../../components/ui/Button";
 
 const ID = () => {
   const router = useRouter();
@@ -16,9 +17,12 @@ const ID = () => {
 
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No event found</p>;
-      </ErrorAlert>
+      <>
+        <ErrorAlert>
+          <p>No event found</p>
+        </ErrorAlert>
+        <Button link="/events">Return Back</Button>
+      </>
     );
   }
 
