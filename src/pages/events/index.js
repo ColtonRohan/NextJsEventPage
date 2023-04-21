@@ -3,6 +3,7 @@ import { getAllEvents } from "../../../dummy-data";
 import EventList from "../../../components/events/EventList";
 import EventsSearch from "../../../components/events/EventsSearch";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const index = () => {
   const events = getAllEvents();
