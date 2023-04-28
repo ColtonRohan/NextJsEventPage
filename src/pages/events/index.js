@@ -1,12 +1,13 @@
 import React from "react";
-import { getAllEvents } from "../../../dummy-data";
+
+import { getAllEvents } from "../api/getAllEvents";
 import EventList from "../../../components/events/EventList";
 import EventsSearch from "../../../components/events/EventsSearch";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const index = () => {
-  const events = getAllEvents();
+const index = (props) => {
+  // const events = getAllEvents();
   const router = useRouter();
 
   function findEventsHandler(year, month) {
@@ -18,9 +19,19 @@ const index = () => {
   return (
     <>
       <EventsSearch onSearch={findEventsHandler} />
-      <EventList items={events} />
+      <EventList items={props.events} />
     </>
   );
 };
+
+export async function getStaticProps() {
+  const featuredEvents = await getAllEvents();
+  return {
+    props: {
+      events: featuredEvents,
+    },
+    revalidate: 600,
+  };
+}
 
 export default index;

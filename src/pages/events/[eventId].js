@@ -1,7 +1,6 @@
 import React from "react";
-import { useRouter } from "next/router";
 
-import { getEventById, getAllEvents } from "../../../helpers/api-util";
+import { getEventById, getFeaturedEvents } from "../api/getAllEvents";
 
 import EventSummary from "../../../components/event-detail/event-summary";
 import EventLogistics from "../../../components/event-detail/event-logistics";
@@ -11,15 +10,14 @@ import Button from "../../../components/ui/Button";
 
 const ID = (props) => {
   const event = props.events;
-  console.log(event);
+  // console.log(event);
 
   if (!event) {
     return (
       <>
-        <ErrorAlert>
-          <p>No event found</p>
-        </ErrorAlert>
-        <Button link="/events">Return Back</Button>
+        <div className="center">
+          <p>Loading...</p>
+        </div>
       </>
     );
   }
@@ -44,22 +42,23 @@ export async function getStaticProps(context) {
   const eventId = context.params.eventId;
   console.log(eventId);
   const featuredEvents = await getEventById(eventId);
-  console.log(featuredEvents);
+  // console.log(featuredEvents);
   return {
     props: {
       events: featuredEvents,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
 
   const ids = events.map((event) => ({ params: { eventId: event.id } }));
 
   return {
     paths: ids,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 

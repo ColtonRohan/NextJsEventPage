@@ -1,7 +1,4 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import useSWR from "swr";
-import { getFeaturedEvents } from "../../helpers/api-util";
+import { getFeaturedEvents } from "./api/getAllEvents";
 
 import EventList from "../../components/events/EventList";
 
@@ -19,5 +16,6 @@ export async function getStaticProps() {
     props: {
       events: featuredEvents,
     },
+    revalidate: 600,
   };
 }
