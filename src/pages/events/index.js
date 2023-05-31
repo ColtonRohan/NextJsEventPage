@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getAllEvents } from "../api/getAllEvents";
+import { getAllEvents } from "../api/getEvents";
 import EventList from "../../../components/events/EventList";
 import EventsSearch from "../../../components/events/EventsSearch";
 import { useRouter } from "next/router";

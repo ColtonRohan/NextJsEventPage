@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getEventById, getFeaturedEvents } from "../api/getAllEvents";
+import { getEventById, getFeaturedEvents } from "../api/getEvents";
 
 import EventSummary from "../../../components/event-detail/event-summary";
 import EventLogistics from "../../../components/event-detail/event-logistics";
@@ -40,7 +40,7 @@ const ID = (props) => {
 
 export async function getStaticProps(context) {
   const eventId = context.params.eventId;
-  console.log(eventId);
+  // console.log(eventId);
   const featuredEvents = await getEventById(eventId);
   // console.log(featuredEvents);
   return {
@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 
   return {
     paths: ids,
-    fallback: "blocking",
+    fallback: false,
   };
 }
 
