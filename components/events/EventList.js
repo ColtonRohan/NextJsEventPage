@@ -10,7 +10,7 @@ const EventList = (props) => {
   //   (url) => fetch(url).then((res) => res.json())
   // );
   // console.log(data);
-  // // console.log(props.items);
+  // console.log(props.items);
 
   return (
     <ul className={classes.list}>
